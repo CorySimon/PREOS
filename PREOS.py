@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 import matplotlib
 import sys
 from scipy.optimize import newton
+
 ###
 #		PARAMETERS FOR MOLECULE
 ###
 molecule = 'methane'
-Tc = -82.7+273.15 # K
-Pc = 45.96 # bar
+Tc = -82.59 + 273.15 # Critical temperature, K
+Pc = 45.99 # Critical pressure, bar
 omega = 0.011 # accentric factor
 R = 8.314e-5 # universal gas constant, m3-bar/K-mol
 print "Molecule: %s. Critical Temp = %.1f K. Critical Pressure = %.1f bar." % (molecule, Tc, Pc)
@@ -25,7 +26,7 @@ P = float(sys.argv[2])
 #		PREOS, BUILD CUBIC TO SOLVE FOR COMPRESSIBILITY
 #   http://en.wikipedia.org/wiki/Equation_of_state#Peng.E2.80.93Robinson_equation_of_state
 ###
-Tr = T/Tc
+Tr = T / Tc
 a = 0.457235 * R**2 * Tc**2 / Pc
 b = 0.0777961 * R * Tc /Pc
 kappa = 0.37464 + 1.54226 * omega - 0.26992 * omega**2
