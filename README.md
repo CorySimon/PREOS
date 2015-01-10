@@ -11,5 +11,4 @@ For your molecule, modify the script by entering the relevant parameters:
 Then, as an example, to find the properties at 298.0 K and 65.0 bar, run the script in the terminal as:
 `python PREOS.py 298.0 65.0`
 
-At the end, a plot will visualize the cubic polynomial to visualize the roots as a check that the correct solution was identified.
-
+At the end, a plot will show the cubic polynomial to visualize the roots as a check that the correct solution was identified.
