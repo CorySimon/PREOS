@@ -32,4 +32,4 @@ For a binary mixture, we specify the temperature, total pressure `P_T`, and mole
     x = [0.2, 0.8] # mole fractions
     delta = - 0.0051 # binary interaction parameter for Xe/Kr
 
-    props = preos.preos_mixture(xe, kr, delta, T, P_total, x, plotcubic=True, printresults=True)
+    props = preos.preos_mixture(xe, kr, delta, T, P_total, x)
