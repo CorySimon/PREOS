@@ -20,7 +20,7 @@ Finally, to print the properties of methane at 65.0 bar and 298.0 K using the Pe
     # pass the Molecule, T, P of interest
     props = preos.preos(methane, 298.0, 65.0, plotcubic=True, printresults=True)
 
-The function `preos` returns a dictionary of properties of the gas at this `T` and `P`. The `plotcubic` flag will plot the cubic polynomial in the compressibility factor for you to manually check that the correct solution was identified. By passing `printresults=False`, the printed output will be supressed.
+The function `preos` returns a dictionary of properties of the gas at this `T` and `P`. The `plotcubic` flag will plot the cubic polynomial in the compressibility factor for you to manually check that the correct solution was identified. By passing `printresults=False`, the printed output will be suppressed.
 
 For a binary mixture, we specify the temperature, total pressure `P_T`, and mole fractions `x`. We have an addition parameter, `delta`, the binary interaction parameter between the two gases. For example, for a Xe/Kr mixture:
 
