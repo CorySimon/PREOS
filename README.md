@@ -18,7 +18,18 @@ As an example calculation, we consider methane at 65.0 bar and 298.0 K. Methane 
 Finally, to print the properties of methane at 65.0 bar and 298.0 K using the Peng-Robinson equation of state:
     
     # pass the Molecule, T, P of interest
-    rho = preos.preos(methane, 298.0, 65.0, plotcubic=True, printresults=True)
-    # returns density in mol/m3
+    props = preos.preos(methane, 298.0, 65.0, plotcubic=True, printresults=True)
 
-The `plotcubic` flag will plot the cubic polynomial in the compressibility factor for you to manually check that the correct solution was identified. By passing `printresults=False`, the printed output will be supressed.
+The function `preos` returns a dictionary of properties of the gas at this `T` and `P`. The `plotcubic` flag will plot the cubic polynomial in the compressibility factor for you to manually check that the correct solution was identified. By passing `printresults=False`, the printed output will be supressed.
+
+For a binary mixture, we specify the temperature, total pressure `P_T`, and mole fractions `x`. We have an addition parameter, `delta`, the binary interaction parameter between the two gases. For example, for a Xe/Kr mixture:
+
+    xe = preos.Molecule("Xe", 16.59 + 273.15, 58.42, 0.0)
+    kr = preos.Molecule("Kr", -63.67 + 273.15, 55.25, 0.0)
+    
+    T = 298 # K 
+    P_total = 1.01325 # bar 
+    x = [0.2, 0.8] # mole fractions
+    delta = - 0.0051 # binary interaction parameter for Xe/Kr
+
+    props = preos.preos_mixture(xe, kr, delta, T, P_total, x, plotcubic=True, printresults=True)
