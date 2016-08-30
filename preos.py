@@ -24,10 +24,10 @@ class Molecule:
         """
         Print molecule parameters.
         """
-        print """Molecule: %s.
+        print("""Molecule: %s.
         \tCritical Temperature = %.1f K
         \tCritical Pressure = %.1f bar.
-        \tAccentric factor = %f""" % (self.name, self.Tc, self.Pc, self.omega)
+        \tAccentric factor = %f""" % (self.name, self.Tc, self.Pc, self.omega))
 
 def preos(molecule, T, P, plotcubic=True, printresults=True):
     """
@@ -69,18 +69,18 @@ def preos(molecule, T, P, plotcubic=True, printresults=True):
                 (z + (1 + np.sqrt(2)) * B) / (z + (1 - np.sqrt(2)) * B)))
 
     if printresults:
-        print """PREOS calculation at
+        print("""PREOS calculation at
         \t T = %.2f K
-        \t P = %.2f bar""" % (T, P)
-        print "\tCompressibility factor : %f" % z
-        print "\tFugacity coefficient: %f" % fugacity_coeff
-        print "\tFugacity at pressure %.3f bar = %.3f bar" % (
-                P, fugacity_coeff * P)
-        print "\tDensity: %f mol/m3" % (rho)
-        print "\tMolar volume: %f L/mol" % (1.0 / rho * 1000)
-        print "\tDensity: %f v STP/v" % (rho * 22.4 / 1000)
-        print "\tDensity of ideal gas at same conditions: %f v STP/v" % (
-                rho * 22.4/ 1000 * z)
+        \t P = %.2f bar""" % (T, P))
+        print("\tCompressibility factor : ", z)
+        print("\tFugacity coefficient: ", fugacity_coeff)
+        print("\tFugacity at pressure %.3f bar = %.3f bar" % (
+                P, fugacity_coeff * P))
+        print("\tDensity: %f mol/m3" % rho)
+        print("\tMolar volume: %f L/mol" % (1.0 / rho * 1000))
+        print("\tDensity: %f v STP/v" % (rho * 22.4 / 1000))
+        print("\tDensity of ideal gas at same conditions: %f v STP/v" % (
+                rho * 22.4/ 1000 * z))
 
     if plotcubic:
         # Plot the cubic equation to visualize the roots
@@ -153,17 +153,17 @@ def preos_mixture(molecule_a, molecule_b, delta, T, P_total, x, plotcubic=True, 
     fugacity_coefs = np.exp(np.array([Lnfug_0, Lnfug_1]))
 
     if printresults:
-        print """PREOS calculation at
+        print("""PREOS calculation at
         \t T = %.2f K
-        \t P, total = %.2f bar""" % (T, P_total)
-        print "\tDensity: %f mol/m3" % (rho)
-        print "\tCompressibility factor : %f" % z
-        print "Component 0, %s:" % molecule_a.name
-        print "\tFugacity coefficient: %f" % fugacity_coefs[0]
-        print "\tFugacity: %f bar" % (fugacity_coefs[0] * x[0] * P_total)
-        print "Component 1, %s:" % molecule_b.name
-        print "\tFugacity coefficient: %f" % fugacity_coefs[1]
-        print "\tFugacity: %f bar" % (fugacity_coefs[1] * x[1] * P_total)
+        \t P, total = %.2f bar""" % (T, P_total))
+        print("\tDensity: %f mol/m3" % rho)
+        print("\tCompressibility factor : %f" % z)
+        print("Component 0, %s:" % molecule_a.name)
+        print("\tFugacity coefficient: %f" % fugacity_coefs[0])
+        print("\tFugacity: %f bar" % (fugacity_coefs[0] * x[0] * P_total))
+        print("Component 1, %s:" % molecule_b.name)
+        print("\tFugacity coefficient: %f" % fugacity_coefs[1])
+        print("\tFugacity: %f bar" % (fugacity_coefs[1] * x[1] * P_total))
 
     if plotcubic:
         # Plot the cubic equation to visualize the roots
