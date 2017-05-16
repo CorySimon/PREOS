@@ -98,6 +98,54 @@ def preos(molecule, T, P, plotcubic=True, printresults=True):
             "compressibility_factor": z, "fugacity(bar)": fugacity_coeff * P,
             "molar_volume(L/mol)": 1.0 / rho * 1000.0}
 
+def preos_reverse(molecule, T, f, plotcubic=False, printresults=True):
+    """
+    Reverse Peng-Robinson equation of state (PREOS) to obtain pressure for a particular fugacity
+    :param molecule: Molecule molecule of interest
+    :param T: float temperature in Kelvin
+    :param f: float fugacity in bar
+    :param plotcubic: bool plot cubic polynomial in compressibility factor
+    :param printresults: bool print off properties
+
+    Returns a Dict() of molecule properties at this T and f.
+    """
+    # build function to minimize: difference between desired fugacity and that obtained from preos
+    def g(P):
+        """
+        :param P: pressure
+        """
+        return (f - preos(molecule, T, P, plotcubic=False, printresults=False)["fugacity(bar)"])
+
+    # Solve preos for the pressure
+    P = newton(g, f)  # pressure
+
+    # Obtain remaining parameters
+    if plotcubic:
+        pars = preos(molecule, T, P, plotcubic=True, printresults=False)
+    else:
+        pars = preos(molecule, T, P, plotcubic=False, printresults=False)
+    rho = pars["density(mol/m3)"]
+    fugacity_coeff = pars["fugacity_coefficient"]
+    z = pars["compressibility_factor"]
+
+    if printresults:
+        print("""PREOS calculation at
+        \t T = %.2f K
+        \t f = %.2f bar""" % (T, f))
+        print("\tCompressibility factor : ", z)
+        print("\tFugacity coefficient: ", fugacity_coeff)
+        print("\tPressure at fugacity %.3f bar = %.3f bar" % (
+                f, f / fugacity_coeff))
+        print("\tDensity: %f mol/m3" % rho)
+        print("\tMolar volume: %f L/mol" % (1.0 / rho * 1000))
+        print("\tDensity: %f v STP/v" % (rho * 22.4 / 1000))
+        print("\tDensity of ideal gas at same conditions: %f v STP/v" % (
+                rho * 22.4/ 1000 * z))
+
+    return {"density(mol/m3)": rho, "fugacity_coefficient": fugacity_coeff,
+            "compressibility_factor": z, "pressure(bar)": P,
+            "molar_volume(L/mol)": 1.0 / rho * 1000.0}
+
 # TODO: Implement mixture in object-oriented way as well
 def preos_mixture(molecule_a, molecule_b, delta, T, P_total, x, plotcubic=True, printresults=True):
     """
