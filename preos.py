@@ -120,10 +120,7 @@ def preos_reverse(molecule, T, f, plotcubic=False, printresults=True):
     P = newton(g, f)  # pressure
 
     # Obtain remaining parameters
-    if plotcubic:
-        pars = preos(molecule, T, P, plotcubic=True, printresults=False)
-    else:
-        pars = preos(molecule, T, P, plotcubic=False, printresults=False)
+    pars = preos(molecule, T, P, plotcubic=plotcubic, printresults=False)
     rho = pars["density(mol/m3)"]
     fugacity_coeff = pars["fugacity_coefficient"]
     z = pars["compressibility_factor"]
